@@ -22,10 +22,14 @@ export default{
             data: pojo
         });
     },
-    edit(gatheringId){
+    update(gatheringId, pojo){
+        if(gatheringId == ''){
+            return this.save(pojo)
+        }
         return request({
             url: `gathering/gathering/${gatheringId}`,
-            method: 'put'
+            method: 'put',
+            data: pojo
         }); 
     },
     getById(gatheringId) {

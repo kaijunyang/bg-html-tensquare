@@ -96,7 +96,8 @@ export default {
       searchMap: {},
       dialogFormVisible: false,
       pojo: {},
-      value: false
+      value: false,
+      id: ""
     };
   },
   created() {
@@ -117,29 +118,23 @@ export default {
     },
     // 保存活动
     handleSave() {
-      if (this.pojo.id != undefined) {
-        // 编辑更新
-        gatheringApi.edit(this.pojo.id).then(response => {
-          this.$message({
-            message: response.message,
-            type: response.flag ? "success" : "error"
-          });
+      // 编辑更新
+      gatheringApi.update(this.id, this.pojo).then(response => {
+        this.$message({
+          message: response.message,
+          type: response.flag ? "success" : "error"
         });
-      } else {
-        // 新增
-        gatheringApi.save(this.pojo).then(response => {
-          this.$message({
-            message: response.message,
-            type: response.flag ? "success" : "error"
-          });
-        });
-      }
+        if (response.flag) {
+          this.fetchData(); // 刷新
+        }
+      });
       this.dialogFormVisible = false;
     },
     // 编辑活动信息
     handleEdit(gatheringId) {
       // alert(id)
       if (gatheringId != "") {
+        this.id = gatheringId;
         gatheringApi.getById(gatheringId).then(response => {
           this.pojo = response.data;
           response.data
