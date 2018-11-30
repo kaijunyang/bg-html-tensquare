@@ -57,6 +57,37 @@ export const constantRouterMap = [
     ]
   },
   {
+    path: '/recruit',
+    component: Layout,
+    name: 'recruit',
+    meta: { title: '招聘管理', icon: 'example' },
+    children: [
+      {
+        path: 'enterprise',
+        name: 'enterprise',
+        component: () => import('@/views/table/enterprise.vue'),
+        meta: { title: '企业管理', icon: 'table' }
+      },
+      {
+        path: 'recruit',
+        name: 'recruit',
+        component: () => import('@/views/table/recruit.vue'),
+        meta: { title: '招聘管理', icon: 'table' }
+      }
+    ]
+  },
+  {
+    path: '/article',
+    component: Layout,
+    name: 'article',
+    meta: { title: '文章管理', icon: 'example' },
+    children: [
+      { path: 'channel', name: 'channel', component: () => import('@/views/table/channel'), meta: { title: '频道管理', icon: 'table' }},
+      { path: 'column', name: 'column', component: () => import('@/views/table/column'), meta: { title: '专栏审核', icon: 'table' }},
+      { path: 'article', name: 'article', component: () => import('@/views/table/article'), meta: { title: '文章审核', icon: 'table' }}
+    ]
+  },
+  {
     path: '/form',
     component: Layout,
     name: 'Example2',
