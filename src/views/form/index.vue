@@ -107,6 +107,13 @@ export default {
     });
   },
   methods: {
+    // 消息
+    handleMessage(response) {
+      this.$message({
+        message: response.message,
+        type: response.flag ? "success" : "error"
+      });
+    },
     // 分页获取活动
     fetchData() {
       gatheringApi
@@ -120,10 +127,7 @@ export default {
     handleSave() {
       // 编辑更新
       gatheringApi.update(this.id, this.pojo).then(response => {
-        this.$message({
-          message: response.message,
-          type: response.flag ? "success" : "error"
-        });
+        this.handleMessage(response)
         if (response.flag) {
           this.fetchData(); // 刷新
         }
@@ -147,7 +151,11 @@ export default {
       }
     },
     // 删除
-    handleDelete(gatheringId) {}
+    handleDelete(gatheringId) {
+      gatheringApi.deleteById(gatheringId).then(response => {
+        this.handleMessage(response)
+      });
+    }
   }
 };
 </script> 
